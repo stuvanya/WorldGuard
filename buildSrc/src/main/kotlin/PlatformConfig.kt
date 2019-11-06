@@ -1,5 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import net.minecrell.gradle.licenser.LicenseExtension
+//import net.minecrell.gradle.licenser.LicenseExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginConvention
@@ -26,7 +26,7 @@ fun Project.applyPlatformAndCoreConfiguration() {
     apply(plugin = "checkstyle")
     apply(plugin = "com.github.johnrengelman.shadow")
     apply(plugin = "com.jfrog.artifactory")
-    apply(plugin = "net.minecrell.licenser")
+//    apply(plugin = "net.minecrell.licenser")
 
     ext["internalVersion"] = "$version;${rootProject.ext["gitCommitHash"]}"
 
@@ -92,10 +92,10 @@ fun Project.applyPlatformAndCoreConfiguration() {
 
     applyCommonArtifactoryConfig()
 
-    configure<LicenseExtension> {
-        header = rootProject.file("HEADER.txt")
-        include("**/*.java")
-    }
+//    configure<LicenseExtension> {
+//        header = rootProject.file("HEADER.txt")
+//        include("**/*.java")
+//    }
 
 }
 
