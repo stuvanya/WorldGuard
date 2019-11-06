@@ -103,12 +103,12 @@ class RegionCommandsBase {
     protected static String checkRegionId(String id, boolean allowGlobal) throws CommandException {
         if (!ProtectedRegion.isValidId(id)) {
             throw new CommandException(
-                    "The region name of '" + id + "' contains characters that are not allowed.");
+                    "§f[§6*§f] §eНазвание региона §a'" + id + "' §eсодержит недопустимые символы.");
         }
 
         if (!allowGlobal && id.equalsIgnoreCase("__global__")) { // Sorry, no global
             throw new CommandException(
-                    "Sorry, you can't use __global__ here.");
+                    "§f[§6*§f] §eИзвините. вы не можете использовать __global__ тут.");
         }
 
         return id;
@@ -141,7 +141,7 @@ class RegionCommandsBase {
             }
 
             throw new CommandException(
-                    "No region could be found with the name of '" + id + "'.");
+                    "§f[§6*§f] §eРегион с таким названием не найден!");
         }
 
         return region;
@@ -184,32 +184,30 @@ class RegionCommandsBase {
         if (set.size() == 0) {
             if (allowGlobal) {
                 ProtectedRegion global = checkExistingRegion(regionManager, "__global__", true);
-                player.printDebug("You're not standing in any " +
-                        "regions. Using the global region for this world instead.");
+                player.printDebug("§f[§6*§f] §eВы не стоите ни в каком регионе, показываем инфо о глобальном.");
                 return global;
             }
             throw new CommandException(
-                    "You're not standing in a region." +
-                            "Specify an ID if you want to select a specific region.");
+                    "§f[§6*§f] §eВы не стоите ни в каком регионе, напишите §a/rg info название§e, если хотите проверить определенный регион.");
         } else if (set.size() > 1) {
             boolean first = true;
 
             final TextComponent.Builder builder = TextComponent.builder("");
-            builder.append(TextComponent.of("Current regions: ", TextColor.GOLD));
+            builder.append(TextComponent.of("§f[§6*§f] §eНайдены регионы: ", TextColor.GOLD));
             for (ProtectedRegion region : set) {
                 if (!first) {
                     builder.append(TextComponent.of(", "));
                 }
                 first = false;
-                TextComponent regionComp = TextComponent.of(region.getId(), TextColor.AQUA);
+                TextComponent regionComp = TextComponent.of(region.getId(), TextColor.GREEN);
                 if (rgCmd != null && rgCmd.contains("%id%")) {
-                    regionComp = regionComp.hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Click to pick this region")))
+                    regionComp = regionComp.hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Нажмите, чтобы выбрать")))
                             .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND, rgCmd.replace("%id%", region.getId())));
                 }
                 builder.append(regionComp);
             }
             player.print(builder.build());
-            throw new CommandException("Several regions affect your current location (please pick one).");
+            throw new CommandException("§f[§6*§f] §eНайдено несколько регионов в вашей локации, выберите один.");
         }
 
         return set.iterator().next();
@@ -228,9 +226,7 @@ class RegionCommandsBase {
             return WorldEdit.getInstance().getSessionManager().get(player).getRegionSelector(player.getWorld()).getRegion();
         } catch (IncompleteRegionException e) {
             throw new CommandException(
-                    "Please select an area first. " +
-                            "Use WorldEdit to make a selection! " +
-                            "(see: https://worldedit.enginehub.org/en/latest/usage/regions/selections/).");
+                    "§f[§6*§f] §eСначала выделите регион деревянным топориком!");
         }
     }
 
@@ -243,8 +239,7 @@ class RegionCommandsBase {
      */
     protected static void checkRegionDoesNotExist(RegionManager manager, String id, boolean mayRedefine) throws CommandException {
         if (manager.hasRegion(id)) {
-            throw new CommandException("A region with that name already exists. Please choose another name." +
-                    (mayRedefine ? " To change the shape, use /region redefine " + id + "." : ""));
+            throw new CommandException("§f[§6*§f] §eРегион с таким название уже существует, выберите другое.");
         }
     }
 
@@ -322,7 +317,7 @@ class RegionCommandsBase {
     protected static void warnAboutDimensions(Actor sender, ProtectedRegion region) {
         int height = region.getMaximumPoint().getBlockY() - region.getMinimumPoint().getBlockY();
         if (height <= 2) {
-            sender.printDebug("(Warning: The height of the region was " + (height + 1) + " block(s).)");
+            sender.printDebug("§f[§6*§f] §cВнимание: §eвысота Вашего региона всего §a" + (height + 1) + "§e блок(ов).)");
         }
     }
 
@@ -335,7 +330,7 @@ class RegionCommandsBase {
      */
     protected static void informNewUser(Actor sender, RegionManager manager, ProtectedRegion region) {
         if (manager.size() <= 2) {
-            sender.print(SubtleFormat.wrap("(This region is NOW PROTECTED from modification from others. Don't want that? Use ")
+            sender.print(SubtleFormat.wrap("§f[§6*§f] §eРегион сейчас защищен от прохода других игроков. Не хотите эттого? Используйте ")
                             .append(TextComponent.of("/rg flag " + region.getId() + " passthrough allow", TextColor.AQUA))
                             .append(TextComponent.of(")", TextColor.GRAY)));
         }

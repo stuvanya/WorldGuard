@@ -40,7 +40,7 @@ public class GeneralCommands {
     }
     
     @Command(aliases = {"god"}, usage = "[player]",
-            desc = "Enable godmode on a player", flags = "s", max = 1)
+            desc = "Включить режим бога игроку", flags = "s", max = 1)
     public void god(CommandContext args, Actor sender) throws CommandException, AuthorizationException {
         Iterable<? extends LocalPlayer> targets = null;
         boolean included = false;
@@ -66,12 +66,12 @@ public class GeneralCommands {
 
                 // Tell the user
                 if (player.equals(sender)) {
-                    player.print("God mode enabled! Use /ungod to disable.");
+                    player.print("§f[§6*§f] §eРежим бога включен! Используйте /ungod чтобы выключить.");
 
                     // Keep track of this
                     included = true;
                 } else {
-                    player.print("God enabled by " + sender.getDisplayName() + ".");
+                    player.print("§f[§6*§f] §eРежим бога включен " + sender.getDisplayName() + ".");
 
                 }
             }
@@ -80,7 +80,7 @@ public class GeneralCommands {
         // The player didn't receive any items, then we need to send the
         // user a message so s/he know that something is indeed working
         if (!included && args.hasFlag('s')) {
-            sender.print("Players now have god mode.");
+            sender.print("§f[§6*§f] §eУ игрока теперь ключен режим бога.");
         }
     }
     

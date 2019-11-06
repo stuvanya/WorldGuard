@@ -83,7 +83,7 @@ class FlagHelperBox extends PaginationBox {
     private boolean monoSpace;
 
     FlagHelperBox(World world, ProtectedRegion region, RegionPermissionModel perms) {
-        super("Flags for " + region.getId(), "/rg flags -w \"" + world.getName() + "\" -p %page% " + region.getId());
+        super("§f[§6*§f] §eФлаги региона " + region.getId(), "/rg flags -w \"" + world.getName() + "\" -p %page% " + region.getId());
         this.world = world;
         this.region = region;
         this.perms = perms;
@@ -393,11 +393,11 @@ class FlagHelperBox extends PaginationBox {
             if (defVal == null) {
                 appendValueText(builder, flag, "unset location", null);
             } else {
-                appendValueText(builder, flag, defVal.toString(), TextComponent.of("Default value:")
+                appendValueText(builder, flag, defVal.toString(), TextComponent.of("Дефолтное значение:")
                         .append(TextComponent.newline()).append(TextComponent.of(defVal.toString())));
             }
         } else {
-            appendValueText(builder, flag, currVal.toString(), TextComponent.of("Current value:")
+            appendValueText(builder, flag, currVal.toString(), TextComponent.of("Текущее значение:")
                     .append(TextComponent.newline()).append(TextComponent.of(currVal.toString())));
         }
     }
@@ -439,7 +439,7 @@ class FlagHelperBox extends PaginationBox {
                 if (display.length() > 23) {
                     display = display.substring(0, 20) + "...";
                 }
-                appendValueText(builder, flag, display, TextComponent.of("Default value:")
+                appendValueText(builder, flag, display, TextComponent.of("Значение по-умолчанию:")
                         .append(TextComponent.newline()).append(defComp));
             }
         } else {
@@ -449,7 +449,7 @@ class FlagHelperBox extends PaginationBox {
             if (display.length() > 23) {
                 display = display.substring(0, 20) + "...";
             }
-            appendValueText(builder, flag, display, TextComponent.of("Current value:")
+            appendValueText(builder, flag, display, TextComponent.of("Текущее значение:")
                     .append(TextComponent.newline()).append(currComp));
         }
     }
