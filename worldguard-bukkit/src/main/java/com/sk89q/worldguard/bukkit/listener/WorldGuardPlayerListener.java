@@ -285,13 +285,13 @@ public class WorldGuardPlayerListener implements Listener {
                     for (Iterator<ProtectedRegion> it = set.iterator(); it.hasNext();) {
                         str.append(it.next().getId());
                         if (it.hasNext()) {
-                            str.append("§b, §a");
+                            str.append("§e, §a");
                         }
                     }
-                    String iMsg = ChatColor.AQUA + " (Можете строить? -" + (set.testState(localPlayer, Flags.BUILD) ? ChatColor.GREEN + " Да" : ChatColor.RED + " Нет") + ChatColor.AQUA + ")";
-                    localPlayer.print("§5§l╠§a§lS-3D§5§l╣§r §bНайдены регионы: §a" + str + iMsg);
+                    String iMsg = ChatColor.YELLOW + " (Можете строить? -" + (set.testState(localPlayer, Flags.BUILD) ? ChatColor.GREEN + " Да" : ChatColor.RED + " Нет") + ChatColor.YELLOW + ")";
+                    localPlayer.print("§f[§6*§f] §eНайдены регионы: §a" + str + iMsg);
                 } else {
-                    localPlayer.print("§5§l╠§a§lS-3D§5§l╣§r §bРегионов не найдено!");
+                    localPlayer.print("§f[§6*§f] §eРегионов не найдено!");
                 }
 
                 event.setUseItemInHand(Event.Result.DENY);

@@ -84,7 +84,7 @@ public class RegionPrintoutBuilder implements Callable<TextComponent> {
      * Add region name, type, and priority.
      */
     public void appendBasics() {
-        builder.append(TextComponent.of("§bРегион: "));
+        builder.append(TextComponent.of("§eРегион: "));
         builder.append(TextComponent.of("§a" + region.getId())
                 .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND, "/rg info -w \"" + world + "\" " + region.getId())));
         
@@ -102,7 +102,7 @@ public class RegionPrintoutBuilder implements Callable<TextComponent> {
      * Add information about flags.
      */
     public void appendFlags() {
-        builder.append(TextComponent.of("§bФлаги: "));
+        builder.append(TextComponent.of("§eФлаги: "));
         
         appendFlagsList(true);
         
@@ -245,13 +245,13 @@ public class RegionPrintoutBuilder implements Callable<TextComponent> {
      * Add information about members.
      */
     public void appendDomain() {
-        builder.append(TextComponent.of("Владельцы: ", TextColor.AQUA));
+        builder.append(TextComponent.of("Владельцы: ", TextColor.YELLOW));
         addDomainString(region.getOwners(),
                 perms != null && perms.mayAddOwners(region) ? "addowner" : null,
                 perms != null && perms.mayRemoveOwners(region) ? "removeowner" : null);
         newline();
 
-        builder.append(TextComponent.of("Участники: ", TextColor.AQUA));
+        builder.append(TextComponent.of("Участники: ", TextColor.YELLOW));
         addDomainString(region.getMembers(),
                 perms != null && perms.mayAddMembers(region) ? "addmember" : null,
                 perms != null && perms.mayRemoveMembers(region) ? "removemember" : null);
@@ -292,7 +292,7 @@ public class RegionPrintoutBuilder implements Callable<TextComponent> {
     public void appendBounds() {
         BlockVector3 min = region.getMinimumPoint();
         BlockVector3 max = region.getMaximumPoint();
-        builder.append(TextComponent.of("Границы:", TextColor.AQUA));
+        builder.append(TextComponent.of("Границы:", TextColor.YELLOW));
         TextComponent bound = TextComponent.of(" " + min + " -> " + max, TextColor.GREEN);
         if (perms != null && perms.maySelect(region)) {
             bound = bound

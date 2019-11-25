@@ -164,7 +164,7 @@ public final class RegionCommands extends RegionCommandsBase {
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
                 .onSuccess((Component) null,
                         t -> {
-                            sender.print(String.format("§5§l╠§a§lS-3D§5§l╣§r §bВы успешно §bприватизировали §bновый §bрегион §bпод §bназванием: §a'%s'.", region.getId()));
+                            sender.print(String.format("§f[§6*§f]§r §eВы успешно §eзаприватили §eновый §eрегион §eпод §eназванием: §a'%s'.", region.getId()));
                             warnAboutDimensions(sender, region);
                             informNewUser(sender, manager, region);
                         })
@@ -218,7 +218,7 @@ public final class RegionCommands extends RegionCommandsBase {
                 .sendMessageAfterDelay("(Please wait... " + description + ")")
                 .onSuccess((Component) null,
                         t -> {
-                            player.print(String.format("§5§l╠§a§lS-3D§5§l╣§r §bГраницы региона §a'%s' §bбыли изменены!", region.getId()));
+                            player.print(String.format("§f[§6*§f]§r §eГраницы региона §a'%s' §eбыли изменены!", region.getId()));
                             warnAboutDimensions(player, region);
                             informNewUser(player, manager, region);
                         })
@@ -266,7 +266,7 @@ public final class RegionCommands extends RegionCommandsBase {
             if (maxRegionCount >= 0
                     && manager.getRegionCountOfPlayer(player) >= maxRegionCount) {
                 throw new CommandException(
-                        "§5§l╠§a§lS-3D§5§l╣§r §bУ Вас слишком много регионов, для привата нового, удалите один из старых!.");
+                        "§f[§6*§f]§r §eУ Вас слишком много регионов, для привата нового, удалите один из старых!.");
             }
         }
 
@@ -276,7 +276,7 @@ public final class RegionCommands extends RegionCommandsBase {
         if (existing != null) {
             if (!existing.getOwners().contains(player)) {
                 throw new CommandException(
-                        "§5§l╠§a§lS-3D§5§l╣§r §bТакой регион уже существует, и не принадлежит Вам!.");
+                        "§f[§6*§f]§r §eТакой регион уже существует, и не принадлежит Вам!.");
             }
         }
 
@@ -286,7 +286,7 @@ public final class RegionCommands extends RegionCommandsBase {
         // Check if this region overlaps any other region
         if (regions.size() > 0) {
             if (!regions.isOwnerOfAll(player)) {
-                throw new CommandException("§5§l╠§a§lS-3D§5§l╣§r §bРегион пересекается с чужим регионом!");
+                throw new CommandException("§f[§6*§f]§r §eРегион пересекается с чужим регионом!");
             }
         } else {
             if (wcfg.claimOnlyInsideExistingRegions) {
@@ -307,8 +307,8 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             if (region.volume() > wcfg.maxClaimVolume) {
-                player.printError("§5§l╠§a§lS-3D§5§l╣§r §cРегион слишком большой для приватизации!");
-                player.printError("Макс.значение: " + wcfg.maxClaimVolume + ", Вы пытаетесь приватизировать: " + region.volume());
+                player.printError("§f[§6*§f]§r §cРегион слишком большой для приватизации!");
+                player.printError("Макс.значение: " + wcfg.maxClaimVolume + ", Вы пытаетесь заприватить: " + region.volume());
                 return;
             }
         }
@@ -321,7 +321,7 @@ public final class RegionCommands extends RegionCommandsBase {
         AsyncCommandBuilder.wrap(task, sender)
                 .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), description)
                 .sendMessageAfterDelay("(Please wait... " + description + ")")
-                .onSuccess(TextComponent.of(String.format("§5§l╠§a§lS-3D§5§l╣§r §bВы успешно §bприватизировали §bновый §bрегион §bпод §bназванием: §a'%s'.", id)), null)
+                .onSuccess(TextComponent.of(String.format("§f[§6*§f]§r §eВы успешно §eзаприватили §eновый §eрегион §eпод §eназванием: §a'%s'.", id)), null)
                 .onFailure("Failed to claim region", WorldGuard.getInstance().getExceptionConverter())
                 .buildAndExec(WorldGuard.getInstance().getExecutorService());
     }
@@ -496,7 +496,7 @@ public final class RegionCommands extends RegionCommandsBase {
 
         if (args.hasFlag('e')) {
             if (value != null) {
-                throw new CommandException("§5§l╠§a§lS-3D§5§l╣§r §bВы не можете использовать пустое значение флага.");
+                throw new CommandException("§f[§6*§f]§r §eВы не можете использовать пустое значение флага.");
             }
 
             value = "";
@@ -575,7 +575,7 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             if (!args.hasFlag('h')) {
-                sender.print("§5§l╠§a§lS-3D§5§l╣§r §bФлаг §a" + foundFlag.getName() + " §bустановлен на регион §a'" + regionId + "' §bсо значением §a'" + value + "'.");
+                sender.print("§f[§6*§f]§r §eФлаг §a" + foundFlag.getName() + " §eустановлен на регион §a'" + regionId + "' §eсо значением §a'" + value + "'.");
             }
 
         // No value? Clear the flag, if -g isn't specified
@@ -590,7 +590,7 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             if (!args.hasFlag('h')) {
-                sender.print("§5§l╠§a§lS-3D§5§l╣§r §bФлаг §a" + foundFlag.getName() + " §bснят с региона §a'" + regionId + "'§b.");
+                sender.print("§f[§6*§f]§r §eФлаг §a" + foundFlag.getName() + " §eснят с региона §a'" + regionId + "'§e.");
             }
         }
 
@@ -601,10 +601,10 @@ public final class RegionCommands extends RegionCommandsBase {
             // If group set to the default, then clear the group flag
             if (groupValue == groupFlag.getDefault()) {
                 existing.setFlag(groupFlag, null);
-                sender.print("§5§l╠§a§lS-3D§5§l╣§r §bГрупповой флаг региона §a'" + foundFlag.getName() + "' §bсброшен к значению по-умолчанию.");
+                sender.print("§f[§6*§f]§r §eГрупповой флаг региона §a'" + foundFlag.getName() + "' §eсброшен к значению по-умолчанию.");
             } else {
                 existing.setFlag(groupFlag, groupValue);
-                sender.print("§5§l╠§a§lS-3D§5§l╣§r §bГрупповой флаг региона §a'" + foundFlag.getName() + "' §bустановлен.");
+                sender.print("§f[§6*§f]§r §eГрупповой флаг региона §a'" + foundFlag.getName() + "' §eустановлен.");
             }
         }
 
@@ -798,12 +798,12 @@ public final class RegionCommands extends RegionCommandsBase {
             task.setRemovalStrategy(RemovalStrategy.UNSET_PARENT_IN_CHILDREN);
         }
 
-        final String description = String.format("§5§l╠§a§lS-3D§5§l╣§r §bУдаление региона '%s' in '%s'", existing.getId(), world.getName());
+        final String description = String.format("§f[§6*§f]§r §eУдаление региона '%s' in '%s'", existing.getId(), world.getName());
         AsyncCommandBuilder.wrap(task, sender)
                 .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), description)
                 .sendMessageAfterDelay("Please wait... removing region.")
                 .onSuccess((Component) null, removed -> sender.print(TextComponent.of(
-                        "§5§l╠§a§lS-3D§5§l╣§r §bРегион успешно удален: §a" + removed.stream().map(ProtectedRegion::getId).collect(Collectors.joining(", ")) + ".",
+                        "§f[§6*§f]§r §eРегион успешно удален: §a" + removed.stream().map(ProtectedRegion::getId).collect(Collectors.joining(", ")) + ".",
                         TextColor.LIGHT_PURPLE)))
                 .onFailure("Failed to remove region", WorldGuard.getInstance().getExceptionConverter())
                 .buildAndExec(WorldGuard.getInstance().getExecutorService());
@@ -1084,19 +1084,19 @@ public final class RegionCommands extends RegionCommandsBase {
             
             if (teleportLocation == null) {
                 throw new CommandException(
-                        "§5§l╠§a§lS-3D§5§l╣§r §bУ региона не установлена точка телепортации.");
+                        "§f[§6*§f]§r §eУ региона не установлена точка телепортации.");
             }
         } else {
             teleportLocation = existing.getFlag(Flags.TELE_LOC);
             
             if (teleportLocation == null) {
-                throw new CommandException("§5§l╠§a§lS-3D§5§l╣§r §bУ региона не установлена точка телепортации.");
+                throw new CommandException("§f[§6*§f]§r §eУ региона не установлена точка телепортации.");
             }
         }
 
         player.teleport(teleportLocation,
-                "§5§l╠§a§lS-3D§5§l╣§r §bТелепортакция к региону '" + existing.getId() + "' выполнена успешно.",
-                "§5§l╠§a§lS-3D§5§l╣§r §bНе получилось телепортироваться к региону '" + existing.getId() + "'.");
+                "§f[§6*§f]§r §eТелепортакция к региону '" + existing.getId() + "' выполнена успешно.",
+                "§f[§6*§f]§r §eНе получилось телепортироваться к региону '" + existing.getId() + "'.");
     }
 
     @Command(aliases = {"toggle-bypass", "bypass"},
@@ -1150,7 +1150,7 @@ public final class RegionCommands extends RegionCommandsBase {
 
             Collections.sort(flagList);
 
-            final TextComponent.Builder builder = TextComponent.builder("§5§l╠§a§lS-3D§5§l╣§r §bДоступные флаги: ");
+            final TextComponent.Builder builder = TextComponent.builder("§f[§6*§f]§r §eДоступные флаги: ");
 
             final HoverEvent clickToSet = HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Нажмите, чтобы установить"));
             for (int i = 0; i < flagList.size(); i++) {
@@ -1164,12 +1164,12 @@ public final class RegionCommands extends RegionCommandsBase {
                 }
             }
 
-            Component ret = ErrorFormat.wrap("§5§l╠§a§lS-3D§5§l╣§r §bНеизвестный флаг: " + flagName)
+            Component ret = ErrorFormat.wrap("§f[§6*§f]§r §eНеизвестный флаг: §a" + flagName)
                     .append(TextComponent.newline())
                     .append(builder.build());
             if (sender.isPlayer()) {
-                return ret.append(TextComponent.of("Или используйте команду ", TextColor.LIGHT_PURPLE)
-                                .append(TextComponent.of("/rg flags " + regionId, TextColor.AQUA)
+                return ret.append(TextComponent.of("Или используйте команду ", TextColor.YELLOW)
+                                .append(TextComponent.of("/rg flags " + regionId, TextColor.GREEN)
                                     .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND,
                                         "/rg flags -w \"" + world.getName() + "\" " + regionId))));
             }

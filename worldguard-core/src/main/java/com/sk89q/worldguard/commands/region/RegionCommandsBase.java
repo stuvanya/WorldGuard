@@ -103,12 +103,12 @@ class RegionCommandsBase {
     protected static String checkRegionId(String id, boolean allowGlobal) throws CommandException {
         if (!ProtectedRegion.isValidId(id)) {
             throw new CommandException(
-                    "§5§l╠§a§lS-3D§5§l╣§r §bНазвание региона §a'" + id + "' §bсодержит недопустимые символы.");
+                    "§f[§6*§f]§r §eНазвание региона §a'" + id + "' §eсодержит недопустимые символы.");
         }
 
         if (!allowGlobal && id.equalsIgnoreCase("__global__")) { // Sorry, no global
             throw new CommandException(
-                    "§5§l╠§a§lS-3D§5§l╣§r §cИзвините. Вы не можете изменять регион §a__global__§b.");
+                    "§f[§6*§f]§r §cИзвините. Вы не можете изменять регион §a__global__§e.");
         }
 
         return id;
@@ -141,7 +141,7 @@ class RegionCommandsBase {
             }
 
             throw new CommandException(
-                    "§5§l╠§a§lS-3D§5§l╣§r §cРегион с таким названием не найден!");
+                    "§f[§6*§f]§r §cРегион с таким названием не найден!");
         }
 
         return region;
@@ -184,16 +184,16 @@ class RegionCommandsBase {
         if (set.size() == 0) {
             if (allowGlobal) {
                 ProtectedRegion global = checkExistingRegion(regionManager, "__global__", true);
-                player.printDebug("§5§l╠§a§lS-3D§5§l╣§r §bВы не стоите ни в каком регионе, показываем инфо о глобальном.");
+                player.printDebug("§f[§6*§f]§r §eВы не стоите ни в каком регионе, показываем инфо о глобальном.");
                 return global;
             }
             throw new CommandException(
-                    "§5§l╠§a§lS-3D§5§l╣§r §bВы не стоите ни в каком регионе, напишите §a/rg info название§b, если хотите проверить определенный регион.");
+                    "§f[§6*§f]§r §eВы не стоите ни в каком регионе, напишите §a/rg info название§e, если хотите проверить определенный регион.");
         } else if (set.size() > 1) {
             boolean first = true;
 
             final TextComponent.Builder builder = TextComponent.builder("");
-            builder.append(TextComponent.of("§5§l╠§a§lS-3D§5§l╣§r §bНайдены регионы: ", TextColor.GOLD));
+            builder.append(TextComponent.of("§f[§6*§f]§r §eНайдены регионы: ", TextColor.GOLD));
             for (ProtectedRegion region : set) {
                 if (!first) {
                     builder.append(TextComponent.of(", "));
@@ -207,7 +207,7 @@ class RegionCommandsBase {
                 builder.append(regionComp);
             }
             player.print(builder.build());
-            throw new CommandException("§5§l╠§a§lS-3D§5§l╣§r §bНайдено несколько регионов в вашей локации, выберите один.");
+            throw new CommandException("§f[§6*§f]§r §eНайдено несколько регионов в вашей локации, выберите один.");
         }
 
         return set.iterator().next();
@@ -226,7 +226,7 @@ class RegionCommandsBase {
             return WorldEdit.getInstance().getSessionManager().get(player).getRegionSelector(player.getWorld()).getRegion();
         } catch (IncompleteRegionException e) {
             throw new CommandException(
-                    "§5§l╠§a§lS-3D§5§l╣§r §bСначала выделите регион деревянным топориком!");
+                    "§f[§6*§f]§r §eСначала выделите регион деревянным топориком!");
         }
     }
 
@@ -239,7 +239,7 @@ class RegionCommandsBase {
      */
     protected static void checkRegionDoesNotExist(RegionManager manager, String id, boolean mayRedefine) throws CommandException {
         if (manager.hasRegion(id)) {
-            throw new CommandException("§5§l╠§a§lS-3D§5§l╣§r §cРегион с таким названием уже существует, выберите другое.");
+            throw new CommandException("§f[§6*§f]§r §cРегион с таким названием уже существует, выберите другое.");
         }
     }
 
@@ -317,7 +317,7 @@ class RegionCommandsBase {
     protected static void warnAboutDimensions(Actor sender, ProtectedRegion region) {
         int height = region.getMaximumPoint().getBlockY() - region.getMinimumPoint().getBlockY();
         if (height <= 2) {
-            sender.printDebug("§5§l╠§a§lS-3D§5§l╣§r §cВнимание: §bвысота Вашего региона всего §a" + (height + 1) + "§b блок(-а/ов).)");
+            sender.printDebug("§f[§6*§f]§r §cВнимание: §eвысота Вашего региона всего §a" + (height + 1) + "§e блок(-а/ов).)");
         }
     }
 
@@ -330,8 +330,8 @@ class RegionCommandsBase {
      */
     protected static void informNewUser(Actor sender, RegionManager manager, ProtectedRegion region) {
         if (manager.size() <= 2) {
-            sender.print(SubtleFormat.wrap("§5§l╠§a§lS-3D§5§l╣§r §bРегион сейчас защищен от прохода других игроков. Не хотите этого? Используйте §a")
-                            .append(TextComponent.of("/rg flag " + region.getId() + " passthrough allow", TextColor.AQUA)));
+            sender.print(SubtleFormat.wrap("§f[§6*§f]§r §eРегион сейчас защищен от прохода других игроков. Не хотите этого? Используйте §a")
+                            .append(TextComponent.of("/rg flag " + region.getId() + " passthrough allow", TextColor.GREEN)));
         }
     }
 

@@ -174,15 +174,15 @@ public final class Flags {
 
     // deny messages
     public static final StringFlag DENY_MESSAGE = register(new StringFlag("deny-message",
-            LegacyComponentSerializer.INSTANCE.serialize(TextComponent.of("").append(TextComponent.of("§5§l╠§a§lS-3D§5§l╣§r",
+            LegacyComponentSerializer.INSTANCE.serialize(TextComponent.of("").append(TextComponent.of("§f[§6*§f]§r",
                     TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
-                    .append(TextComponent.of(" Вы не в праве распоряжаться этой территорией! (%what% запрещено!)", TextColor.RED)))));
+                    .append(TextComponent.of(" %what% запрещено в этом регионе!", TextColor.RED)))));
     public static final StringFlag ENTRY_DENY_MESSAGE = register(new StringFlag("entry-deny-message",
-            LegacyComponentSerializer.INSTANCE.serialize(TextComponent.of("").append(TextComponent.of("§5§l╠§a§lS-3D§5§l╣§r",
+            LegacyComponentSerializer.INSTANCE.serialize(TextComponent.of("").append(TextComponent.of("§f[§6*§f]§r",
                     TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
                     .append(TextComponent.of(" Вам запрещено входить в эту зону!", TextColor.RED)))));
     public static final StringFlag EXIT_DENY_MESSAGE = register(new StringFlag("exit-deny-message",
-            LegacyComponentSerializer.INSTANCE.serialize(TextComponent.of("").append(TextComponent.of("§5§l╠§a§lS-3D§5§l╣§r",
+            LegacyComponentSerializer.INSTANCE.serialize(TextComponent.of("").append(TextComponent.of("§f[§6*§f]§r",
                     TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
                     .append(TextComponent.of(" Вам запрещено выходить из этой зоны!", TextColor.RED)))));
 

@@ -69,11 +69,11 @@ public class MemberCommands extends RegionCommandsBase {
         resolver.setLocatorPolicy(args.hasFlag('n') ? UserLocatorPolicy.NAME_ONLY : UserLocatorPolicy.UUID_ONLY);
 
 
-        final String description = String.format("§5§l╠§a§lS-3D§5§l╣§r §bДобавление участников в регион §a'%s' §bв мире §a'%s'", region.getId(), world.getName());
+        final String description = String.format("§f[§6*§f]§r §eДобавление участников в регион §a'%s' §eв мире §a'%s'", region.getId(), world.getName());
         AsyncCommandBuilder.wrap(resolver, sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
-                .onSuccess(String.format("§5§l╠§a§lS-3D§5§l╣§r §bВ регион §a'%s' §bбыли внесены следующие изменения: добавлен 1 или несколько участников.", region.getId()), region.getMembers()::addAll)
-                .onFailure("§5§l╠§a§lS-3D§5§l╣§r §cОшибка при добалении новых участников", worldGuard.getExceptionConverter())
+                .onSuccess(String.format("§f[§6*§f]§r §eВ регион §a'%s' §eбыли внесены следующие изменения: добавлен 1 или несколько участников.", region.getId()), region.getMembers()::addAll)
+                .onFailure("§f[§6*§f]§r §cОшибка при добалении новых участников", worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
 
@@ -103,11 +103,11 @@ public class MemberCommands extends RegionCommandsBase {
         resolver.setLocatorPolicy(args.hasFlag('n') ? UserLocatorPolicy.NAME_ONLY : UserLocatorPolicy.UUID_ONLY);
 
 
-        final String description = String.format("§5§l╠§a§lS-3D§5§l╣§r §bДобавление владельцев в регион §a'%s' §bв мире §a'%s'", region.getId(), world.getName());
+        final String description = String.format("§f[§6*§f]§r §eДобавление владельцев в регион §a'%s' §eв мире §a'%s'", region.getId(), world.getName());
         AsyncCommandBuilder.wrap(checkedAddOwners(sender, manager, region, world, resolver), sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
-                .onSuccess(String.format("§5§l╠§a§lS-3D§5§l╣§r §bВ регион §a'%s' §bбыли внесены следующие изменения: добавлен 1 или несколько владельцев.", region.getId()), region.getOwners()::addAll)
-                .onFailure("§5§l╠§a§lS-3D§5§l╣§r §cОшибка при добалении новых владельцев", worldGuard.getExceptionConverter())
+                .onSuccess(String.format("§f[§6*§f]§r §eВ регион §a'%s' §eбыли внесены следующие изменения: добавлен 1 или несколько владельцев.", region.getId()), region.getOwners()::addAll)
+                .onFailure("§f[§6*§f]§r §cОшибка при добалении новых владельцев", worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
 
@@ -123,7 +123,7 @@ public class MemberCommands extends RegionCommandsBase {
                             .get(world).getMaxRegionCount(player);
                     if (maxRegionCount >= 0 && manager.getRegionCountOfPlayer(player)
                             >= maxRegionCount) {
-                        throw new CommandException("§5§l╠§a§lS-3D§5§l╣§r §cВы исчерпали лимит для создания нового региона! Удалите какой-нибудь старый, чтобы создать новый.");
+                        throw new CommandException("§f[§6*§f]§r §cВы исчерпали лимит для создания нового региона! Удалите какой-нибудь старый, чтобы создать новый.");
                     }
                 }
             }
@@ -167,7 +167,7 @@ public class MemberCommands extends RegionCommandsBase {
             callable = region::getMembers;
         } else {
             if (args.argsLength() < 2) {
-                throw new CommandException("§5§l╠§a§lS-3D§5§l╣§r §cУкажите ники, кого хотите удалить, или используйте -a чтобы удалить всех.");
+                throw new CommandException("§f[§6*§f]§r §cУкажите ники, кого хотите удалить, или используйте -a чтобы удалить всех.");
             }
 
             // Resolve members asynchronously
@@ -178,12 +178,12 @@ public class MemberCommands extends RegionCommandsBase {
             callable = resolver;
         }
 
-        final String description = String.format("§5§l╠§a§lS-3D§5§l╣§r §bУдаление участников из региона §a'%s' §bв мире §a'%s'", region.getId(), world.getName());
+        final String description = String.format("§f[§6*§f]§r §eУдаление участников из региона §a'%s' §eв мире §a'%s'", region.getId(), world.getName());
         AsyncCommandBuilder.wrap(callable, sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
                 .sendMessageAfterDelay("(Пожалуйста подождите... поиск игроков по никам...)")
-                .onSuccess(String.format("§5§l╠§a§lS-3D§5§l╣§r §bВ регион §a'%s' §bбыли внесены следующие изменения: удалён 1 или несколько участников.", region.getId()), region.getMembers()::removeAll)
-                .onFailure("§5§l╠§a§lS-3D§5§l╣§r §cОшибка при удалении участников", worldGuard.getExceptionConverter())
+                .onSuccess(String.format("§f[§6*§f]§r §eВ регион §a'%s' §eбыли внесены следующие изменения: удалён 1 или несколько участников.", region.getId()), region.getMembers()::removeAll)
+                .onFailure("§f[§6*§f]§r §cОшибка при удалении участников", worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
 
@@ -210,7 +210,7 @@ public class MemberCommands extends RegionCommandsBase {
             callable = region::getOwners;
         } else {
             if (args.argsLength() < 2) {
-                throw new CommandException("§5§l╠§a§lS-3D§5§l╣§r §cУкажите ники, кого хотите удалить, или используйте -a чтобы удалить всех.");
+                throw new CommandException("§f[§6*§f]§r §cУкажите ники, кого хотите удалить, или используйте -a чтобы удалить всех.");
             }
 
             // Resolve owners asynchronously
@@ -221,12 +221,12 @@ public class MemberCommands extends RegionCommandsBase {
             callable = resolver;
         }
 
-        final String description = String.format("§5§l╠§a§lS-3D§5§l╣§r §bУдаление владельцев из региона §a'%s' §bв мире §a'%s'", region.getId(), world.getName());
+        final String description = String.format("§f[§6*§f]§r §eУдаление владельцев из региона §a'%s' §eв мире §a'%s'", region.getId(), world.getName());
         AsyncCommandBuilder.wrap(callable, sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
                 .sendMessageAfterDelay("(Пожалуйста подождите... поиск игроков по никам...)")
-                .onSuccess(String.format("§5§l╠§a§lS-3D§5§l╣§r §bВ регион §a'%s' §bбыли внесены следующие изменения: удалён 1 или несколько владельцев.", region.getId()), region.getOwners()::removeAll)
-                .onFailure("§5§l╠§a§lS-3D§5§l╣§r §cОшибка при удалении владельцев", worldGuard.getExceptionConverter())
+                .onSuccess(String.format("§f[§6*§f]§r §eВ регион §a'%s' §eбыли внесены следующие изменения: удалён 1 или несколько владельцев.", region.getId()), region.getOwners()::removeAll)
+                .onFailure("§f[§6*§f]§r §cОшибка при удалении владельцев", worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
 }

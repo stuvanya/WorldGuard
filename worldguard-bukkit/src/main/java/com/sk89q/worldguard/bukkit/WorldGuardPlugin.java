@@ -236,11 +236,11 @@ public class WorldGuardPlugin extends JavaPlugin {
                 throw t;
             }
         } catch (CommandPermissionsException e) {
-            sender.sendMessage(ChatColor.RED + "§5§l╠§a§lS-3D§5§l╣§r §cВы не имеете право выполнять данную команду!");
+            sender.sendMessage(ChatColor.RED + "§f[§6*§f] §cВы не имеете права выполнять данную команду!");
         } catch (MissingNestedCommandException e) {
             sender.sendMessage(ChatColor.RED + e.getUsage());
         } catch (CommandUsageException e) {
-            sender.sendMessage(ChatColor.RED + "§5§l╠§a§lS-3D§5§l╣§r §bКоманда введена неправильно:");
+            sender.sendMessage(ChatColor.RED + "§f[§6*§f] §eКоманда введена неправильно:");
             // sender.sendMessage(ChatColor.RED + e.getMessage());
             sender.sendMessage(ChatColor.RED + e.getUsage());
         } catch (WrappedCommandException e) {
