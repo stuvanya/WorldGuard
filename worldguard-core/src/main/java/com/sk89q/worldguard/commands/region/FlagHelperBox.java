@@ -83,7 +83,7 @@ class FlagHelperBox extends PaginationBox {
     private boolean monoSpace;
 
     FlagHelperBox(World world, ProtectedRegion region, RegionPermissionModel perms) {
-        super("§f[§6*§f] §eФлаги региона " + region.getId(), "/rg flags -w \"" + world.getName() + "\" -p %page% " + region.getId());
+        super("§5§l╠§a§lS-3D§5§l╣§r §bФлаги региона " + region.getId(), "/rg flags -w \"" + world.getName() + "\" -p %page% " + region.getId());
         this.world = world;
         this.region = region;
         this.perms = perms;
@@ -198,7 +198,7 @@ class FlagHelperBox extends PaginationBox {
             List<Component> hoverTexts = new ArrayList<>();
             if (maySet) {
                 if (isExplicitSet) {
-                    hoverTexts.add(TextComponent.of("Click to unset", TextColor.GOLD));
+                    hoverTexts.add(TextComponent.of("Нажмите, чтобы снять", TextColor.GOLD));
                 } else if (DANGER_ZONE.contains(flag)) {
                     hoverTexts.add(TextComponent.of("Setting this flag may have unintended consequences.", TextColor.RED)
                             .append(TextComponent.newline())
@@ -206,7 +206,7 @@ class FlagHelperBox extends PaginationBox {
                             .append(TextComponent.newline())
                             .append(TextComponent.of("(Hint: You do not need to set this to protect the region!)"))));
                 } else {
-                    hoverTexts.add(TextComponent.of("Click to set", TextColor.GOLD));
+                    hoverTexts.add(TextComponent.of("Нажмите, чтобы установить", TextColor.GOLD));
                 }
             }
             Component valType = getToolTipHint(defVal, choice, inherited);
@@ -237,7 +237,7 @@ class FlagHelperBox extends PaginationBox {
         if (suggestChoice != null && perms.maySetFlag(region, flag)) {
             builder.append(TextComponent.of(suggestChoice, TextColor.DARK_GRAY)
                     .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT,
-                            TextComponent.of("Click to set custom value", TextColor.GOLD)))
+                            TextComponent.of("Нажмите, чтобы установить специальное значение", TextColor.GOLD)))
                     .clickEvent(ClickEvent.of(ClickEvent.Action.SUGGEST_COMMAND, makeCommand(flag, ""))));
         }
     }
@@ -393,7 +393,7 @@ class FlagHelperBox extends PaginationBox {
             if (defVal == null) {
                 appendValueText(builder, flag, "unset location", null);
             } else {
-                appendValueText(builder, flag, defVal.toString(), TextComponent.of("Дефолтное значение:")
+                appendValueText(builder, flag, defVal.toString(), TextComponent.of("Значение по-умолчанию:")
                         .append(TextComponent.newline()).append(TextComponent.of(defVal.toString())));
             }
         } else {

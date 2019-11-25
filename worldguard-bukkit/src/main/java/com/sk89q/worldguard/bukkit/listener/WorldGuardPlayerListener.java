@@ -280,19 +280,18 @@ public class WorldGuardPlayerListener implements Listener {
 
             if (item != null && item.getType().getKey().toString().equals(wcfg.regionWand) && plugin.hasPermission(player, "worldguard.region.wand")) {
                 if (set.size() > 0) {
-                    player.sendMessage(ChatColor.YELLOW + "Можете строить? " + (set.testState(localPlayer, Flags.BUILD) ? "Да" : "Нет"));
 
                     StringBuilder str = new StringBuilder();
                     for (Iterator<ProtectedRegion> it = set.iterator(); it.hasNext();) {
                         str.append(it.next().getId());
                         if (it.hasNext()) {
-                            str.append(", ");
+                            str.append("§b, §a");
                         }
                     }
-
-                    localPlayer.print("Найдены регионы: " + str);
+                    String iMsg = ChatColor.AQUA + " (Можете строить? -" + (set.testState(localPlayer, Flags.BUILD) ? ChatColor.GREEN + " Да" : ChatColor.RED + " Нет") + ChatColor.AQUA + ")";
+                    localPlayer.print("§5§l╠§a§lS-3D§5§l╣§r §bНайдены регионы: §a" + str + iMsg);
                 } else {
-                    localPlayer.print("Регионов не найдено!");
+                    localPlayer.print("§5§l╠§a§lS-3D§5§l╣§r §bРегионов не найдено!");
                 }
 
                 event.setUseItemInHand(Event.Result.DENY);

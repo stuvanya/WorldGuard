@@ -66,12 +66,12 @@ public class GeneralCommands {
 
                 // Tell the user
                 if (player.equals(sender)) {
-                    player.print("§f[§6*§f] §eРежим бога включен! Используйте /ungod чтобы выключить.");
+                    player.print("§5§l╠§a§lS-3D§5§l╣§r §bРежим бога включен! Используйте /ungod чтобы выключить.");
 
                     // Keep track of this
                     included = true;
                 } else {
-                    player.print("§f[§6*§f] §eРежим бога включен " + sender.getDisplayName() + ".");
+                    player.print("§5§l╠§a§lS-3D§5§l╣§r §bРежим бога включен " + sender.getDisplayName() + ".");
 
                 }
             }
@@ -80,7 +80,7 @@ public class GeneralCommands {
         // The player didn't receive any items, then we need to send the
         // user a message so s/he know that something is indeed working
         if (!included && args.hasFlag('s')) {
-            sender.print("§f[§6*§f] §eУ игрока теперь ключен режим бога.");
+            sender.print("§5§l╠§a§lS-3D§5§l╣§r §bУ игрока теперь ключен режим бога.");
         }
     }
     

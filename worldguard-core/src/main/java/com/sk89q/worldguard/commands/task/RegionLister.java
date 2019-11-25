@@ -175,7 +175,7 @@ public class RegionLister implements Callable<Integer> {
         }
 
         RegionPermissionModel perms = sender.isPlayer() ? new RegionPermissionModel(sender) : null;
-        String title = ownerMatcher == null ? "Регионы" : "Регионы " + ownerMatcher.getName();
+        String title = ownerMatcher == null ? " Список регионов" : " Список регионов " + ownerMatcher.getName();
         String cmd = "/rg list -w \"" + world + "\""
                 + (playerName != null ? " -p " + playerName : "")
                 + (nameOnly ? " -n" : "")
@@ -246,7 +246,7 @@ public class RegionLister implements Callable<Integer> {
         @Override
         public Component getComponent(int number) {
             final RegionListEntry entry = entries.get(number);
-            final TextComponent.Builder builder = TextComponent.builder(number + 1 + ".").color(TextColor.LIGHT_PURPLE);
+            final TextComponent.Builder builder = TextComponent.builder(number + 1 + ".").color(TextColor.AQUA);
             if (entry.isOwner()) {
                 builder.append(TextComponent.space()).append(TextComponent.of("+", TextColor.DARK_AQUA)
                         .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Владелец региона", TextColor.GOLD))));
@@ -256,13 +256,13 @@ public class RegionLister implements Callable<Integer> {
             }
             builder.append(TextComponent.space()).append(TextComponent.of(entry.getRegion().getId(), TextColor.GOLD));
             if (perms != null && perms.mayLookup(entry.region)) {
-                builder.append(TextComponent.space().append(TextComponent.of("[Info]", TextColor.GRAY)
+                builder.append(TextComponent.space().append(TextComponent.of("[Информация]", TextColor.GRAY)
                         .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Нажмите для доп. информации")))
                         .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND,
                                 "/rg info -w \"" + world + "\" " + entry.region.getId()))));
             }
             if (perms != null && entry.region.getFlag(Flags.TELE_LOC) != null && perms.mayTeleportTo(entry.region)) {
-                builder.append(TextComponent.space().append(TextComponent.of("[TP]", TextColor.GRAY)
+                builder.append(TextComponent.space().append(TextComponent.of("[Телепортация]", TextColor.GRAY)
                         .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Нажмите для телепортации")))
                         .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND,
                                 "/rg tp -w \"" + world + "\" " + entry.region.getId()))));
